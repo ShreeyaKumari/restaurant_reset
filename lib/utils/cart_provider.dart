@@ -30,8 +30,12 @@ class CartProvider with ChangeNotifier {
   }
 
   void decreaseQuantity(Dish dish) {
-    if (_items.containsKey(dish) && _items[dish]! > 1) {
-      _items[dish] = _items[dish]! - 1;
+    if (_items.containsKey(dish)) {
+      if (_items[dish]! > 1) {
+        _items[dish] = _items[dish]! - 1;
+      } else {
+        _items.remove(dish); // Remove if quantity becomes 0
+      }
       notifyListeners();
     }
   }

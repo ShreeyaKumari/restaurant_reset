@@ -76,7 +76,7 @@ class _DishDetailsDialogState extends State<DishDetailsDialog> {
                           ),
                         ),
                         Text(
-                          '${widget.dish.price.toInt()} DH',
+                          '${widget.dish.price.toInt()} Rs',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
@@ -133,7 +133,8 @@ class _DishDetailsDialogState extends State<DishDetailsDialog> {
                         suffixIcon: IconButton(
                           onPressed: () {
                             if (_commentController.text.trim().isNotEmpty) {
-                              widget.onAddComment(_commentController.text.trim());
+                              widget
+                                  .onAddComment(_commentController.text.trim());
                               _commentController.clear();
                               setState(() {});
                             }
@@ -210,9 +211,11 @@ class _DishDetailsDialogState extends State<DishDetailsDialog> {
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: ElevatedButton.icon(
                 onPressed: () {
-                  Provider.of<CartProvider>(context, listen: false).addToCart(widget.dish);
+                  Provider.of<CartProvider>(context, listen: false)
+                      .addToCart(widget.dish);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('${widget.dish.name} added to cart')),
+                    SnackBar(
+                        content: Text('${widget.dish.name} added to cart')),
                   );
                 },
                 icon: Icon(Icons.shopping_cart),

@@ -18,17 +18,19 @@ class Acceuil extends StatelessWidget {
     required this.addresse,
   });
 
-  // Open the phone app with a given number
   Future<void> _launchPhone(String phoneNumber) async {
     final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
-    if (await canLaunchUrl(phoneUri)) {
-      await launchUrl(phoneUri);
-    } else {
-      throw 'Unable to call this number: $phoneNumber';
+
+    try {
+      if (!await launchUrl(phoneUri)) {
+        throw 'Could not launch $phoneNumber';
+      }
+    } catch (e) {
+      debugPrint('Error launching phone call: $e');
+      // You can also show a snackbar or dialog here if you want
     }
   }
 
-  // Open Google Maps with an address or coordinates
   Future<void> _launchMaps(String query) async {
     final Uri googleMapsUri = Uri(
       scheme: 'https',
@@ -37,10 +39,12 @@ class Acceuil extends StatelessWidget {
       queryParameters: {'api': '1', 'query': query},
     );
 
-    if (await canLaunchUrl(googleMapsUri)) {
-      await launchUrl(googleMapsUri);
-    } else {
-      throw 'Unable to open Google Maps for: $query';
+    try {
+      if (!await launchUrl(googleMapsUri)) {
+        throw 'Could not open Google Maps for $query';
+      }
+    } catch (e) {
+      debugPrint('Error launching maps: $e');
     }
   }
 
@@ -68,24 +72,17 @@ class Acceuil extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Logo Image
             const CircleAvatar(
               radius: 60,
               backgroundImage: AssetImage("assets/images/logo2.png"),
             ),
-
             const SizedBox(height: 15),
-
-            // Slogan
             Text(
               "The restaurant that puts little dishes in the big ones.",
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodySmall,
             ),
-
             const SizedBox(height: 20),
-
-            // Maps and Phone Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -94,7 +91,7 @@ class Acceuil extends StatelessWidget {
                   color: AppColors.green,
                   icon: const Icon(Icons.place),
                   onPressed: () {
-                    _launchMaps(addresse); // Dynamically launching map with address
+                    _launchMaps(addresse);
                   },
                 ),
                 const SizedBox(width: 40),
@@ -103,15 +100,12 @@ class Acceuil extends StatelessWidget {
                   color: AppColors.yellow,
                   icon: const Icon(Icons.phone),
                   onPressed: () {
-                    _launchPhone(telephone); // Dynamic phone number
+                    _launchPhone(telephone);
                   },
                 ),
               ],
             ),
-
             const SizedBox(height: 30),
-
-            // Information Card
             Card(
               shadowColor: AppColors.primary,
               elevation: 8,
@@ -119,55 +113,32 @@ class Acceuil extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Restaurant Name:",
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+                    Text("Restaurant Name:",
+                        style: Theme.of(context).textTheme.bodyLarge),
                     const SizedBox(height: 8),
-                    Text(
-                      name,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-
+                    Text(name, style: Theme.of(context).textTheme.bodySmall),
                     const SizedBox(height: 20),
-
-                    Text(
-                      "Description:",
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+                    Text("Description:",
+                        style: Theme.of(context).textTheme.bodyLarge),
                     const SizedBox(height: 8),
-                    Text(
-                      desc,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-
+                    Text(desc, style: Theme.of(context).textTheme.bodySmall),
                     const SizedBox(height: 20),
-
-                    Text(
-                      "Address:",
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+                    Text("Address:",
+                        style: Theme.of(context).textTheme.bodyLarge),
                     const SizedBox(height: 8),
-                    Text(
-                      addresse,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-
+                    Text(addresse,
+                        style: Theme.of(context).textTheme.bodySmall),
                     const SizedBox(height: 20),
-
-                    Text(
-                      "Phone:",
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+                    Text("Phone:",
+                        style: Theme.of(context).textTheme.bodyLarge),
                     const SizedBox(height: 8),
-                    Text(
-                      telephone,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
+                    Text(telephone,
+                        style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),
               ),

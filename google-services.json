@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "29386585385",
+    "project_id": "golden-fork-d55bf",
+    "storage_bucket": "golden-fork-d55bf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29386585385:android:eb98c0742764affea13338",
+        "android_client_info": {
+          "package_name": "com.example.restaurant_reset"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6BbkzYcRJGdYRNl0n3V_v4abtSHCTVmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
